@@ -20,6 +20,8 @@ footer {
 	align-items: center;
 	margin: 5px;
 	border-radius: 5px;
+	color: white;
+	cursor: pointer;
 }
 
 .wide {

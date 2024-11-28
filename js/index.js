@@ -14,6 +14,10 @@ const appStart = () => {
         displayGameover();
         clearInterval(timer);
     }
+    const keyboardChange = (key, color) => {
+        const keyBlock = document.querySelector(`.keyboard-column[data-key='${key}']`);
+        keyBlock.style.background = color;
+    }
     const nextLine = () => {
         // 강의에선 attempts 가 6일때 gameover를 호출하는데 
         // 그러면 마지막 라인에서 enter를 눌렀을땐 attempts값이 5이므로 5일떼 gameover 호출
@@ -40,9 +44,15 @@ const appStart = () => {
             console.log(input_letter, answer_letter);
             if (input_letter === answer_letter) {
                 correct_count++;
-                block.style.background = "#6AAA64";
-            } else if (answer.includes(input_letter)) block.style.background = "#C9B458";
-            else block.style.background = "#787C7E";
+                block.style.background = "#538D4E";
+                keyboardChange(input_letter, "#538D4E");
+            } else if (answer.includes(input_letter)) {
+                block.style.background = "#B59F3B";
+                keyboardChange(input_letter, "#B59F3B");
+            } else {
+                block.style.background = "#3A3A3D";
+                keyboardChange(input_letter, "#3A3A3D")
+            }
             block.style.color = "white";
 
         }
@@ -50,10 +60,7 @@ const appStart = () => {
         else nextLine();
 
     }
-    const handleKeydown = (event) => {
-
-        const key = event.key.toUpperCase();
-        const keyCode = event.keyCode;
+    const keyAction = (key, keyCode) => {
         const thisBlock = document.querySelector(`.board-column[data-index='${attempts}${index}']`);
         if (key === 'BACKSPACE') handleBackspace();
         else if (index === 5) {
@@ -63,6 +70,12 @@ const appStart = () => {
             thisBlock.innerText = key;
             index++;
         }
+
+    }
+    const handleKeydown = (event) => {
+        const key = event.key.toUpperCase();
+        const keyCode = event.keyCode;
+        keyAction(key, keyCode);
 
     };
     const startTimer = () => {
@@ -81,9 +94,22 @@ const appStart = () => {
 
 
     }
+    const keyboardClick = (e) => {
+        const key = e.target.getAttribute('data-key');
+        keyAction(key, 65);
+        // 키보드 화면 데이터는 다 대문자이므로 keycode 값은 임의로 맞는값으로 지정
+
+    }
+    const keyboardEvent = () => {
+        const keys = document.querySelectorAll('.keyboard-column');
+        keys.forEach(key => {
+            key.addEventListener('click', keyboardClick);
+        })
+    }
     // 키다운 이벤트
     window.addEventListener("keydown", handleKeydown);
     startTimer();
+    keyboardEvent();
 }
 
 appStart();
