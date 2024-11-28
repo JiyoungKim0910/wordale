@@ -1,0 +1,31 @@
+footer {
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+	align-items: center;
+	margin-top: 80px;
+}
+
+.keyboard-row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.keyboard-column {
+	width: 40px;
+	height: 40px;
+	background-color: darkgray;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 5px;
+	border-radius: 5px;
+}
+
+.wide {
+	width: 60px;
+	background-color: darkgray;
+}
+.wide img {
+	width: 30px;
+}

@@ -1,0 +1,26 @@
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 10px 0;
+}
+.menubar-title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+}
+.menubar-column {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.menubar-icon {
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	margin: 0 5px;
+}
+.menubar-icon img {
+	width: 30px;
+}
