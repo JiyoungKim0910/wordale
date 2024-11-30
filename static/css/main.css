@@ -1,0 +1,61 @@
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	margin-top: 30px;
+}
+.board-row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+.board-column {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 3px solid #d3d6da;
+	width: 60px;
+	height: 60px;
+	font-size: 30px;
+}
+@keyframes gameOverAnimation {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.2);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.game-over {
+	animation: gameOverAnimation 1s ease-out;
+}
+
+/* 좌우 흔들리는 애니메이션 */
+@keyframes shake {
+	0% {
+		transform: translateX(0);
+	}
+	25% {
+		transform: translateX(-10px);
+	}
+	50% {
+		transform: translateX(10px);
+	}
+	75% {
+		transform: translateX(-10px);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+
+.shake {
+	animation: shake 0.5s ease-out;
+}

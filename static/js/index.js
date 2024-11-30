@@ -1,4 +1,4 @@
-const answer = "APPLE";
+// const answer = "APPLE";
 let index = 0;
 let attempts = 0;
 let timer;
@@ -32,10 +32,16 @@ const appStart = () => {
         }
         if (index !== 0) index--;
     }
-    const handleEnterKey = () => {
+    const handleEnterKey = async () => {
         // answer check
         let correct_count = 0;
-        console.log("enter!!!")
+        const response = await fetch('/answer');
+        const answer = await response.json();
+        // await 를 써서 서버에서 오는 응답을 기다림
+        // 안그러면 응답이 오기 전에 코드를 실행해버려서 undefined가 됨
+
+        // const answer = answer_obj.answer;
+
         for (let i = 0; i < 5; i++) {
             const block = document.querySelector(`.board-column[data-index='${attempts}${i}']`);
 
@@ -56,8 +62,30 @@ const appStart = () => {
             block.style.color = "white";
 
         }
-        if (correct_count === 5) gameover();
-        else nextLine();
+        if (correct_count === 5) {
+            // 게임이 끝나면 게임 오버 애니메이션 추가
+            const allBlocks = document.querySelectorAll(`.row-${attempts}`);
+            allBlocks.forEach(block => {
+                block.classList.add('game-over');
+            });
+
+            setTimeout(() => {
+                gameover(); // 1초 후에 게임 종료 함수 실행
+            }, 1000); // 애니메이션이 끝난 후 호출
+
+        } else {
+            // 게임이 끝나지 않으면 블록 좌우 흔들리는 애니메이션 추가
+            const allBlocks = document.querySelectorAll(`.row-${attempts}`);
+            allBlocks.forEach(block => {
+                block.classList.add('shake');
+                // 애니메이션이 끝나면 클래스 제거
+                setTimeout(() => {
+                    block.classList.remove('shake');
+                }, 500); // 애니메이션 duration과 일치
+            });
+            nextLine();
+        }
+
 
     }
     const keyAction = (key, keyCode) => {
